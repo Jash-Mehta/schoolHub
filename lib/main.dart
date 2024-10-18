@@ -53,6 +53,7 @@ class AppPages {
     GetPage(name: Routes.ADMIN_HOME, page: () => AdminHomeView()),
     GetPage(name: Routes.STUDENT_APPROVAL, page: () => StudentApprovalView()),
     GetPage(name: Routes.UPLOAD_RESULT, page: () => UploadResultView()),
+    //  GetPage(name: Routes.OTP_VERIFICATION, page: () => OTPVerificationView()),
   ];
 }
 

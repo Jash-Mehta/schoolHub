@@ -70,7 +70,7 @@ class SignupView extends GetView<AuthController> {
                       classValue: classController.text,
                     );
                     if (result == 'Success') {
-                      Get.offAllNamed(Routes.STUDENT_HOME);
+                      Get.offAllNamed(Routes.STUDENT_LOGIN);
                     } else {
                       Get.snackbar('Error', result,
                           backgroundColor: Colors.red, colorText: Colors.white);

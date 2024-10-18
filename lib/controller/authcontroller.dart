@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String? _verificationId;
 
   Rx user = Rx(null);
 
@@ -13,6 +15,67 @@ class AuthController extends GetxController {
     user.bindStream(_auth.authStateChanges());
     super.onInit();
   }
+
+  // Future<void> sendOTP(String phoneNumber) async {
+  //   try {
+  //     await _auth.verifyPhoneNumber(
+  //       phoneNumber: "+91${phoneNumber}",
+  //       verificationCompleted: (PhoneAuthCredential credential) async {
+  //         await _auth.signInWithCredential(credential);
+  //       },
+  //       verificationFailed: (FirebaseAuthException e) {
+  //         Get.snackbar('Error', e.message ?? 'An error occurred',
+  //             backgroundColor: Colors.red, colorText: Colors.white);
+  //       },
+  //       codeSent: (String verificationId, int? resendToken) {
+  //         _verificationId = verificationId;
+  //       },
+  //       codeAutoRetrievalTimeout: (String verificationId) {
+  //         _verificationId = verificationId;
+  //       },
+  //     );
+  //   } catch (e) {
+  //     Get.snackbar('Error', e.toString(),
+  //         backgroundColor: Colors.red, colorText: Colors.white);
+  //   }
+  // }
+
+  // Future<String> verifyOTP(String otp) async {
+  //   try {
+  //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
+  //       verificationId: _verificationId!,
+  //       smsCode: otp,
+  //     );
+
+  //     UserCredential result = await _auth.signInWithCredential(credential);
+  //     User? user = result.user;
+
+  //     if (user != null) {
+  //       DocumentSnapshot doc =
+  //           await _firestore.collection('students').doc(user.uid).get();
+  //       if (doc.exists) {
+  //         bool approved = doc.get('approved') as bool;
+  //         if (approved) {
+  //           return 'Success';
+  //         } else {
+  //           await _auth.signOut();
+  //           return 'Your account is not approved yet. Please contact the admin.';
+  //         }
+  //       } else {
+  //         // If the user doesn't exist in Firestore, create a new document
+  //         await _firestore.collection('students').doc(user.uid).set({
+  //           'phoneNumber': user.phoneNumber,
+  //           'uid': user.uid,
+  //           'approved': false,
+  //         });
+  //         return 'Success';
+  //       }
+  //     }
+  //   } catch (e) {
+  //     return e.toString();
+  //   }
+  //   return 'An error occurred';
+  // }
 
   Future<Map<String, dynamic>> getUserData() async {
     try {

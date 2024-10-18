@@ -11,11 +11,12 @@ class ProfileView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     // Pre-fill the data
-    nameController.text = controller.user.value?.displayName ?? '';
-    mobileController.text = controller.user.value?.phoneNumber ?? '';
+
     emailController.text = controller.user.value?.email ?? '';
     controller.getUserData().then((userData) {
       classController.text = userData['class'] ?? '';
+      nameController.text = userData['name'] ?? '';
+      mobileController.text = userData['mobile'] ?? '';
     });
 
     return Scaffold(
